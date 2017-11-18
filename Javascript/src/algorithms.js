@@ -8,13 +8,13 @@ if(typeof Algorithms === "undefined") {
 // If it is greater than or equal to 10, sum the digits of the resulting number.
 // Keep repeating until there is only one digit in the result, called the "digital root".
 // Do not use string conversion within your method.
-Algorithms.digitalRoot = function (number) {  
+Algorithms.digitalRoot = function (number) {
   if (number < 10) {
     return number;
   }
   let digit = number % 10
   let result = digit +  Algorithms.digitalRoot(Math.floor(number / 10))
-  
+
   if (result > 10) {
     result = Algorithms.digitalRoot(result)
   }
@@ -26,12 +26,44 @@ Algorithms.digitalRoot = function (number) {
 // Preserve spaces.
 Algorithms.caesarCipher = function (string, shift) {
   let alphabet = "abcdefghijklmnopqrstuvwxyz".split("")
-  console.log(alphabet);
+  let strArr = string.split("")
+  let result = []
+
+  strArr.forEach((char => {
+    if (char === " ") {
+      result.push(" ")
+    } else {
+      newIndex = (alphabet.indexOf(char) + shift) % 26
+      result.push(alphabet[newIndex])
+    }
+  }))
+
+  return result.join("")
 };
 
 // Write a function that takes two strings and returns the lenght of the longest common substring.
 Algorithms.commonSubstrings = function (stringOne, stringTwo) {
+  let shortest = stringOne.length >= stringTwo.length ? stringOne : stringTwo;
+  let longest = shortest === stringOne ? stringTwo : stringOne;
+  let i = 0;
+  let j = 1;
 
+  let max = 0;
+
+  while (i < shortest.length - 1) {
+    while (j <= shortest.length) {
+      if (longest.includes(shortest.slice(i, j)) && shortest.slice(i, j).length > max) {
+        max = shortest.slice(i, j).length;
+      }
+
+      j += 1
+    }
+
+    i += 1
+    j = i
+  }
+
+  return max;
 };
 
 // Write a function that takes an array of integers and returns their sum.
