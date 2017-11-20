@@ -72,40 +72,96 @@ Algorithms.sumRec = function (numbers) {
   if (numbers.length <= 1) {
     return numbers[0]
   }
-
   let last = numbers.pop()
   return last + Algorithms.sumRec(numbers)
 };
 
 // Write a function which returns the first n elements from the fibonnacci sequence, given n.
 Algorithms.fibs = function (number) {
+  if (number <= 1) {
+    return [0]
+  }
+  if (number === 2) {
+    return [0, 1]
+  }
+  let feebs = Algorithms.fibs(number - 1)
+  let next = feebs[feebs.length - 1] + feebs[feebs.length - 2]
+  return feebs.concat([next])
 
 };
 
 // Write a function that takes a string and returns true if it's a palindrome, false if it's not.
 // Your solution should take less time and memory than rebuilding the string backward and comparing the two.
 Algorithms.isPalindrome = function (string) {
-
+  let i = 0;
+  let j = string.length - 1;
+  while (i !== j) {
+    if (string[i] !== string[j]) {
+      return false;
+    }
+    i += 1;
+    j -= 1;
+  }
+  return true;
 };
 
 // Implement the Folding Cipher.
 // It folds the alphabet in half and uses the adjacent letter.
 // a <=> z, b <=> y, c <=> x, m <=> n.
 Algorithms.foldingCipher = function (string) {
+  let alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
 
+  let i = 0;
+  let result = []
+  while (i < string.length) {
+    let newIndex = 26 - alphabet.indexOf(string[i]) - 1
+    result.push(alphabet[newIndex])
+    i += 1;
+  }
+  return result.join("");
 };
 
 // Write a method that finds all the unique substrings for a word.
 Algorithms.uniqSubs = function (string) {
+  let substrings = {};
+  let i = 0;
+  let j = 1;
+
+  let subs = {}
+
+  while (i < string.length) {
+    while (j <= string.length) {
+      if (!!subs[string.slice(i, j)]) {
+        subs[string.slice(i, j)] += 1;
+      } else {
+        subs[string.slice(i, j)] = 0;
+      }
+      j += 1;
+    }
+    i += 1;
+    j = i + 1;
+  }
+
+  return Object.keys(subs);
 
 };
+
 
 
 // Given an array of integers (positive and negative) find the largest contiguous subsum (sum of a subarray).
 // You can solve this trivially in O(n**2) time by considering all subarrays.
 // Try to solve it in O(n) time with O(1) memory.
 Algorithms.lcs = function (array) {
+  let max = 0;
+  let i = 0;
+  while (i < array.length - 1) {
+    if (array[i] + array[i + 1] > max) {
+      max = array[i] + array[i + 1]
+    }
+    i += 1;
+  }
 
+  return max;
 };
 
 // Write a function that takes a year (four digit integer) and returns an array with the 10 closest subsequent years that meet the following condition:
