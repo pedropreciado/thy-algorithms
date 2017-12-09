@@ -9,21 +9,22 @@ class Node
 end
 
 class Solution    
-   def removeDuplicates(head)
-       cur = head.next
-       last = head
-       until cur.next.nil?
-          if last.data == cur.data
-              last.next = cur.next
-              cur = cur.next
-          else
-              last, cur = cur, cur.next
-          end
-          
-       end
-       return head
-       
-    end
+  def removeDuplicates(head)
+     cur = head.next
+     last = head
+     until last.next.nil?
+        if last.data == cur.data
+            last.next = cur.next
+            cur = cur.next
+        else
+            last, cur = cur, cur.next
+        end
+        
+     end
+     return head
+     
+  end
+
   
     def insert(head,value)
       p=Node.new(value)
