@@ -163,13 +163,31 @@ Algorithms.lcs = function (array) {
   }
 
   return max;
-  
-  
+
+
 };
 
-// Write a function that takes a year (four digit integer) and returns an array with the 10 closest subsequent years that meet the following condition:
+// Write a function that takes a year (four digit integer) and returns an array with the 10 closest
+// subsequent years that meet the following condition:
 // the first two digits summed with the last two digits are equal to the middle two digits.
 Algorithms.sillyYears = function (number) {
+  let result = [];
+  let i = 0;
+  console.log(number);
+  while (result.length < 10) {
+    number += 1;
+    let sideSum = Math.floor(number / 100 % 100) + Math.floor(number % 100);
+    let mid = Math.floor(number / 10 % 100);
+
+
+    if (sideSum === mid) {
+      result.push(number);
+    };
+
+    i += 1;
+  }
+
+  return result;
 };
 
 // Given an array of integers, return all pairs that sum up to a specified value k.
