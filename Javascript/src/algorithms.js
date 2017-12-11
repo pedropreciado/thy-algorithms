@@ -152,18 +152,18 @@ Algorithms.uniqSubs = function (string) {
 // You can solve this trivially in O(n**2) time by considering all subarrays.
 // Try to solve it in O(n) time with O(1) memory.
 Algorithms.lcs = function (array) {
-  let max = 0;
-  let i = 0;
-  while (i < array.length - 1) {
+  let i = 1;
+  let j = 2;
+  let sum = array[0];
 
-    if (array[i] + array[i + 1] > max) {
-      max = array[i] + array[i + 1]
+  while (i < array.length - 1) {
+    if (sum + array[i] >= sum) {
+
+      sum += array[i];
     }
+
     i += 1;
   }
-
-  return max;
-
 
 };
 
@@ -173,12 +173,12 @@ Algorithms.lcs = function (array) {
 Algorithms.sillyYears = function (number) {
   let result = [];
   let i = 0;
-  console.log(number);
+
   while (result.length < 10) {
     number += 1;
+
     let sideSum = Math.floor(number / 100 % 100) + Math.floor(number % 100);
     let mid = Math.floor(number / 10 % 100);
-
 
     if (sideSum === mid) {
       result.push(number);
@@ -195,8 +195,26 @@ Algorithms.sillyYears = function (number) {
 // Time complexity: O(n).
 // Return an array.
 Algorithms.pairSum = function (array, k) {
+  console.log(array);
 
+  let seen = {};
+  let i = 0;
+  let result = new Set();
+  while (i < array.length) {
+    seen[array[i]] = -1;
+
+    if (seen[k - array[i]]) {
+      let max = array[i] < (k - array[i]) ? (k - array[i]) : array[i]
+      let min = array[i] > (k - array[i]) ? (k - array[i]) : array[i]
+      result.add([min, max])
+    }
+
+    i += 1;
+  }
+
+  return Object.keys(result);
 };
+
 
 // Given a matrix of integers and coordinates of a rectangular region within the matrix.
 // Find the sum of numbers falling inside the rectangle.
