@@ -1,5 +1,9 @@
 /*<link href="https://fonts.googleapis.com/css?family=Raleway|Source+Sans+Pro:200" rel="stylesheet">*/
 
+* {
+  font-weight: 200;
+}
+
 body { background-color: #282C34; padding: 0; margin: 5px; overflow-y: scroll; }
 
 #HTMLReporter { font-size: 13px; font-family: 'Source Sans Pro', sans-serif; line-height: 14px; color: white; }

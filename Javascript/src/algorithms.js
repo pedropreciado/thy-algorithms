@@ -152,18 +152,28 @@ Algorithms.uniqSubs = function (string) {
 // You can solve this trivially in O(n**2) time by considering all subarrays.
 // Try to solve it in O(n) time with O(1) memory.
 Algorithms.lcs = function (array) {
-  let i = 1;
-  let j = 2;
-  let sum = array[0];
+  // let i = 1;
+  // let j = 2;
+  // let sum = array[0];
+  //
+  // while (i < array.length - 1) {
+  //   if (sum + array[i] >= sum) {
+  //
+  //     sum += array[i];
+  //   }
+  //
+  //   i += 1;
+  // }
 
-  while (i < array.length - 1) {
-    if (sum + array[i] >= sum) {
+  let currentMax = 0;
+  let max = 0;
 
-      sum += array[i];
-    }
-
-    i += 1;
+  for (let i = 0; i < array.length; i++) {
+    currentMax = Math.max(0, currentMax + array[i]);
+    max = Math.max(currentMax, max);
   }
+  return max;
+
 
 };
 
