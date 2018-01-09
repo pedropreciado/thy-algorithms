@@ -36,23 +36,34 @@ end
 
 # Write a function that takes two strings.
 # Return the longest common substring.
-def common_substrings(string_one, string_two)
-  min = min(string_one.length, string_two.length)
-  max = max(string_one.length, string_two.length)
 
-  i = 0
-  while tail > 0
-    tail = min.length - 1
-    min[i, tail]
-    if max.includes?(min[i, tail])
-      return min[i, tail]
-    else
-      tail -= 1
+def make_matrix(str1, str2)
+  matrix = Array.new(str1.length + 1) { Array.new(str2.length + 1, 0)}
+
+  str1.chars.each_with_index do |el1, idx1|
+    str2.chars.each_with_index do |el2, idx2|
+      if el1 == el2
+        matrix[idx1 + 1][idx2 + 1] = matrix[idx1][idx2] + 1
+      end
     end
   end
-  r
+
+  matrix
 end
 
+def common_substrings(string_one, string_two)
+  matrix = make_matrix(string_one, string_two)
+  result = ""
+  matrix.each_with_index do |row, idx1|
+    row.each_with_index do |length, idx2|
+      if length > result.length
+        result = string_two[idx2 - length...idx2]
+      end
+    end
+  end
+
+  result
+end
 # Write a function that takes an array of integers and returns their sum.
 # Use recursion.
 def sum_rec(numbers)
