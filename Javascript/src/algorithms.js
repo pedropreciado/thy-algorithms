@@ -205,24 +205,23 @@ Algorithms.sillyYears = function (number) {
 // Time complexity: O(n).
 // Return an array.
 Algorithms.pairSum = function (array, k) {
-  console.log(array);
 
   let seen = {};
   let i = 0;
-  let result = new Set();
+  let noticed = {};
+  let result = [];
   while (i < array.length) {
     seen[array[i]] = -1;
 
-    if (seen[k - array[i]]) {
-      let max = array[i] < (k - array[i]) ? (k - array[i]) : array[i]
-      let min = array[i] > (k - array[i]) ? (k - array[i]) : array[i]
-      result.add([min, max])
-    }
 
+    if (seen[k - array[i]]) {
+      let max = Math.max(array[i], k - array[i])
+      let min = Math.min(array[i], k - array[i])
+    }
     i += 1;
   }
 
-  return Object.keys(result);
+  return result;
 };
 
 

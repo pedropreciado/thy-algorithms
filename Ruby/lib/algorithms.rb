@@ -4,23 +4,53 @@
 # The result is called a 'digital root'.
 # Do not use string conversion within your method.
 def digital_root(number)
-  return number if number < 10
-  digit = number % 10 
-  return digit + digital_root(number / 10)
+
+  ((number) % 9 + 1) - 1
+  #
+  # while number > 10
+  #   curr_dig = number % 10
+  #   number /= 10
+  #   curr_dig + digital_root(number)
+  # end
+  # number
 end
+
 
 # Write a function that takes a message and an increment amount.
 # Output the same letters shifted by that amount in the alphabet.
 # Assume lowercase and no punctuation.
 # Preserve spaces.
 def caesar_cipher(string, shift)
-
+  alphabet = ("a".."z").to_a
+  result = ""
+  string.each_char do |char|
+    if char == " "
+      result << " "
+    else
+      new_idx = (alphabet.index(char) + shift) % 26
+      result << alphabet[new_idx]
+    end
+  end
+  result
 end
 
 # Write a function that takes two strings.
 # Return the longest common substring.
 def common_substrings(string_one, string_two)
+  min = min(string_one.length, string_two.length)
+  max = max(string_one.length, string_two.length)
 
+  i = 0
+  while tail > 0
+    tail = min.length - 1
+    min[i, tail]
+    if max.includes?(min[i, tail])
+      return min[i, tail]
+    else
+      tail -= 1
+    end
+  end
+  r
 end
 
 # Write a function that takes an array of integers and returns their sum.
@@ -279,5 +309,5 @@ end
 
 # Write a method that takes an array and returns all its permutations.
 def permutations(array)
-  
+
 end
