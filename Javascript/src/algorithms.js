@@ -42,28 +42,51 @@ Algorithms.caesarCipher = function (string, shift) {
 };
 
 // Write a function that takes two strings and returns the lenght of the longest common substring.
+
+
 Algorithms.commonSubstrings = function (stringOne, stringTwo) {
-  let shortest = stringOne.length >= stringTwo.length ? stringOne : stringTwo;
-  let longest = shortest === stringOne ? stringTwo : stringOne;
-  let i = 0;
-  let j = 1;
+  const makeMatrix = (stringOne, stringTwo) => {
+    let matrix = new Array(stringOne.length + 1).fill(Array(stringTwo.length + 1).fill(0));
 
-  let max = 0;
+    let idx1 = 0
+    stringOne.split("").forEach((char1) => {
+      let idx2 = 0
 
-  while (i < shortest.length - 1) {
-    while (j <= shortest.length) {
-      if (longest.includes(shortest.slice(i, j)) && shortest.slice(i, j).length > max) {
-        max = shortest.slice(i, j).length;
-      }
+      stringTwo.split("").forEach((char2) => {
+        if (char1 === char2) {
+          matrix[idx1 + 1][idx2 + 2] = matrix[idx1][idx2] + 1;
+        }
 
-      j += 1
-    }
+        idx2 += 1;
+      })
 
-    i += 1
-    j = i
+      idx1 += 1
+    })
+
+    return matrix;
   }
 
-  return max;
+  let lengthMatrix = makeMatrix(stringOne, stringTwo);
+  console.log(lengthMatrix);
+  let result = "";
+
+  let idxA = 0;
+  lengthMatrix.forEach((row) => {
+    let idxB = 0;
+
+    row.forEach((length) => {
+      if (length > result.length) {
+        console.log("result1", result);
+      result = stringTwo.slice(idxB - length, idxB);
+        console.log("rsult2", result);
+      }
+      idxB += 1;
+    })
+
+    idxA += 1;
+  })
+
+  return result.length;
 };
 
 // Write a function that takes an array of integers and returns their sum.
