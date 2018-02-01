@@ -39,7 +39,7 @@ test("sorts", () => {
   new Edge(v6, v7);
   new Edge(v7, v8);
 
-  expect(Sort.topologicalSort(shuffle(vertices)).map((vertex) => {
+  expect(solutions).toContain(Sort.topologicalSort(shuffle(vertices)).map((vertex) => {
     return vertex.value
-  })).toBe(solutions);
+  }));
 })

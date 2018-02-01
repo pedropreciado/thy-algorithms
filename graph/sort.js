@@ -9,30 +9,29 @@ module.exports = {
     let queue = [];
     let nilArray = [];
 
-    let inEdges = {};
+    let edges = {};
+
 
     vertices.forEach((vertex) => {
       if (vertex.inEdges.length === 0) {
         queue.push(vertex);
       }
-      inEdges[vertex] = vertex.inEdges.length;
+      edges[`${vertex.value}`] = vertex.inEdges.length;
     })
-
 
     while (queue.length !== 0) {
       let u = queue.pop();
+      console.log(u);
       sorted.push(u);
       u.outEdges.forEach((edge) => {
-        inEdges[edge.toVertex] -= 1;
-        if (inEdges[edge.toVertex] === 0) {
+        edges[edge.toVertex.value] -= 1;
+        if (edges[edge.toVertex.value] === 0) {
           queue.push(edge.toVertex);
         }
       })
-
     }
-
+    
     return sorted;
-
   }
 
 }
