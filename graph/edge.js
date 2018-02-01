@@ -1,0 +1,7 @@
+class Edge {
+
+  constructor(fromVertex) {
+
+  }
+
+}
