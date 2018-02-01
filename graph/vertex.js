@@ -1,9 +1,17 @@
 class Vertex {
 
-  constructor(value, inEdges, outEdges) {
+  constructor(value) {
     this.value = value;
-    this.inEdges = inEdges;
-    this.outEdges = outEdges;
+    this.inEdges = [];
+    this.outEdges = [];
+  }
+
+  addInEdge(edge) {
+    this.inEdges.push(edge);
+  }
+
+  addOutEdge(edge) {
+    this.outEdges.push(edge);
   }
 
 }
