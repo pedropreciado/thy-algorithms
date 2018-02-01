@@ -69,7 +69,7 @@
 
 class Vertex {
 
-  constructor(value) {
+  constructor(value, inEdges = [], outEdges = []) {
     this.value = value;
     this.inEdges = [];
     this.outEdges = [];
@@ -95,36 +95,72 @@ module.exports = Vertex;
 let Edge = __webpack_require__(2);
 let Vertex = __webpack_require__(0);
 
-const topologicalSort = (vertices) => {
-  let sorted = [];
-  let queue = [];
+module.exports = {
 
-  inEdges = {};
+  topologicalSort(vertices) {
 
-  vertices.forEach((vertex) => {
-    if (vertex.inEdges.length === 0) {
-      queue.push(vertex);
-    }
-    inEdges[vertex] = vertex.inEdges.length;
-  })
+    let sorted = [];
+    let queue = [];
+    let nilArray = [];
 
-  while (queue.length !== 0) {
-    let u = queue.pop();
-    sorted.push(u);
-    u.outEdges.forEach((edge) => {
-      inEdges[edge.toVertex] -= 1;
-      if (inEdges[edge.toVertex] === 0) {
-        queue.push(edge.toVertex);
+    let inEdges = {};
+
+    vertices.forEach((vertex) => {
+      if (vertex.inEdges.length === 0) {
+        queue.push(vertex);
       }
+      inEdges[vertex] = vertex.inEdges.length;
     })
+
+
+    while (queue.length !== 0) {
+      let u = queue.pop();
+      sorted.push(u);
+      u.outEdges.forEach((edge) => {
+        inEdges[edge.toVertex] -= 1;
+        if (inEdges[edge.toVertex] === 0) {
+          queue.push(edge.toVertex);
+        }
+      })
+
+    }
+
+    return sorted;
+
   }
 
-  if (vertices.length != sorted.length) {
-    return [];
-  } else {
-    return sorted;
-  }
 }
+
+// export const topologicalSort = (vertices) => {
+//   let sorted = [];
+//   let queue = [];
+//
+//   inEdges = {};
+//
+//   vertices.forEach((vertex) => {
+//     if (vertex.inEdges.length === 0) {
+//       queue.push(vertex);
+//     }
+//     inEdges[vertex] = vertex.inEdges.length;
+//   })
+//
+//   while (queue.length !== 0) {
+//     let u = queue.pop();
+//     sorted.push(u);
+//     u.outEdges.forEach((edge) => {
+//       inEdges[edge.toVertex] -= 1;
+//       if (inEdges[edge.toVertex] === 0) {
+//         queue.push(edge.toVertex);
+//       }
+//     })
+//   }
+//
+//   if (vertices.length != sorted.length) {
+//     return [];
+//   } else {
+//     return sorted;
+//   }
+// }
 
 
 /***/ }),
@@ -135,13 +171,13 @@ let Vertex = __webpack_require__(0);
 
 class Edge {
 
-  constructor(fromVertex, toVertex, cost) {
+  constructor(fromVertex, toVertex, cost = 1) {
     this.fromVertex = fromVertex;
     this.toVertex = toVertex;
     this.cost = cost;
 
-    fromVertex.addInEdge(this);
-    toVertex.addOutEdge(this);
+    toVertex.addInEdge(this);
+    fromVertex.addOutEdge(this);
   }
 
   destroy() {

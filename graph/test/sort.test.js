@@ -1,6 +1,6 @@
-let Vertex = require("./vertex");
-let Edge = require("./edge");
-let Sort = require("./sort");
+let Vertex = require("../vertex");
+let Edge = require("../edge");
+let Sort = require("../sort")
 
 let v1 = new Vertex("Wash Markov");
 let v2 = new Vertex("Feed Markov");
@@ -39,7 +39,7 @@ test("sorts", () => {
   new Edge(v6, v7);
   new Edge(v7, v8);
 
-  expect(topologicalSort(shuffle(vertices)).map((vertex) => {
+  expect(Sort.topologicalSort(shuffle(vertices)).map((vertex) => {
     return vertex.value
   })).toBe(solutions);
 })

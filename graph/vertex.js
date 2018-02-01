@@ -1,6 +1,6 @@
 class Vertex {
 
-  constructor(value) {
+  constructor(value, inEdges = [], outEdges = []) {
     this.value = value;
     this.inEdges = [];
     this.outEdges = [];

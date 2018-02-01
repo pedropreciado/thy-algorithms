@@ -2,13 +2,13 @@ let Vertex = require("./vertex");
 
 class Edge {
 
-  constructor(fromVertex, toVertex, cost) {
+  constructor(fromVertex, toVertex, cost = 1) {
     this.fromVertex = fromVertex;
     this.toVertex = toVertex;
     this.cost = cost;
 
-    fromVertex.addInEdge(this);
-    toVertex.addOutEdge(this);
+    toVertex.addInEdge(this);
+    fromVertex.addOutEdge(this);
   }
 
   destroy() {
