@@ -16,10 +16,20 @@ class BinarySearchTree
     else
       self.class.set_parent(@root, value)
     end
-
   end
 
   def find(value, tree_node = @root)
+    if tree_node.value == value
+      return tree_node
+    end
+
+    if value < tree_node.value
+      return nil if tree_node.left.nil?
+      find(value, tree_node.left)
+    else
+      return nil if tree_node.right.nil?
+      find(value, tree_node.right)
+    end
   end
 
   def delete(value)
@@ -58,6 +68,6 @@ class BinarySearchTree
     elsif value > tree_node.value
       set_parent(tree_node.right, value)
     end
-    
+
   end
 end
