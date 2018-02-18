@@ -28,14 +28,14 @@ View.prototype.exercise1 = function () {
 View.prototype.exercise2 = function () {
   //Challenge: Remove every square
   //Result: Every square vanishes
-
+  $("li").remove();
   //your code here!
 };
 
 View.prototype.exercise3 = function () {
   //Challenge: Add an <h1> with the text 'i love jquery' under the grid.
   //Result: An <h1> with the text 'i love jquery' appears under the grid.
-
+  $("#easel").append("<h1>i love jquery</h1>");
   //your code here!
 };
 
