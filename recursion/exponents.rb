@@ -9,4 +9,6 @@ end
 
 p answer = exp1(2, 5)
 
-def 
+def exp2(b, n)
+  
+end
