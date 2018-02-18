@@ -80,6 +80,10 @@ View.prototype.exercise7 = function(){
   //rainbow.
 
   //your code here!
+  $(".square").on("click", (event) => {
+    let $el = $(event.target);
+    console.log(`${$el.css("background-color")}`)
+  })
 };
 
 
