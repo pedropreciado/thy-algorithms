@@ -33,10 +33,16 @@ class BinarySearchTree
   end
 
   def delete(value)
+    find_and_delete(@root, value)
   end
 
   # helper method for #delete:
   def maximum(tree_node = @root)
+    until tree_node.right.nil?
+      tree_node = tree_node.right
+    end
+
+    return tree_node
   end
 
 
@@ -51,7 +57,40 @@ class BinarySearchTree
 
 
   private
-  def find_and_delete(value, tree_node)
+  def find_and_delete(tree_node, value)
+    node = find(value, tree_node)
+    parent = node.parent
+
+    if !!node.left && !!node.right
+      new_node = maximum(node.left)
+
+      if parent.left == node
+        parent.left = new_node
+      else
+        parent.right = new_node
+      end
+
+    elsif node.left.nil? && node.right.nil?
+      return @root = nil if node == @root
+
+      if parent.left == node
+        parent.left = nil
+      else
+        parent.right = nil
+      end
+
+    elsif node.left.nil? ^ node.right.nil?
+      new_node = node.left.nil? ? node.right : node.left
+
+      if parent.left == node
+          parent.left = new_node
+      else
+        parent.right = new_node
+      end
+
+    end
+
+    return node
   end
 
   # optional helper methods go here:
@@ -59,8 +98,10 @@ class BinarySearchTree
 
     if tree_node.left.nil? && value < tree_node.value
       tree_node.left = BSTNode.new(value)
+      tree_node.left.parent = tree_node
     elsif tree_node.right.nil? && value > tree_node.value
       tree_node.right = BSTNode.new(value)
+      tree_node.right.parent = tree_node
     end
 
     if value < tree_node.value
