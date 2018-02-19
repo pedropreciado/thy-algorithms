@@ -17,9 +17,20 @@ ul {
   margin: 0 auto;
 }
 
-ul > li {
+.square {
   float: left;
-  border: .5px solid white;
+  border: .5px solid rgb(33, 33, 33);
   width: 200px;
   height: 200px;
+  background-color: #4E4E50;
+}
+
+.square:hover {
+  background-color: #950740;
+  cursor: pointer;
+  transition: .5s;
+}
+
+.square:active {
+  background-color: #C3073F;
 }
