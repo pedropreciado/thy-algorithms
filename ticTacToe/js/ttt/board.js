@@ -25,6 +25,12 @@ class Board {
 
   }
 
+  gameOver() {
+    if (this.winner() != null) {
+      return true;
+    }
+  }
+
   winnerHelper(posSeq) {
     for (let markIdx = 0; markIdx < Board.marks.length; markIdx += 1) {
       const targetMark = Board.marks[markIdx];
@@ -74,3 +80,5 @@ class Board {
     return grid;
   }
 }
+
+module.exports = Board;
