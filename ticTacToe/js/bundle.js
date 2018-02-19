@@ -85,14 +85,31 @@ $( () => {
 class View {
   constructor(game, $el) {
     this.game = game;
-    this.$el = $el;
+    this.board = $el;
+
+    this.setupBoard();
   }
 
   bindEvents() {}
 
   makeMove($square) {}
 
-  setupBoard() {}
+  setupBoard() {
+    let $ul = $("<ul>");
+    $ul.addClass("group");
+
+    for (let rowIdx = 0; rowIdx < 3; rowIdx += 1) {
+      for (let colIdx = 0; colIdx < 3; colIdx += 1) {
+        let $li = $("<li>");
+
+        $li.data("pos", [rowIdx, colIdx]);
+
+        $ul.append($li)
+      }
+    }
+
+    this.board.append($ul);
+  }
 }
 
 module.exports = View;
@@ -188,8 +205,7 @@ module.exports = Game;
 
 class Board {
   constructor() {
-    this.grid = Board.makeGrid();
-    this.marks = ["x", "o"]
+    this.grid = this.makeGrid();
   }
 
   winner() {
@@ -258,16 +274,19 @@ class Board {
 
     for (let i = 0; i < 3; i += 1) {
       let row = [];
-      for (let j = 0; j < 3; i += 1) {
+      for (let j = 0; j < 3; j += 1) {
         row.push([]);
       }
 
-      this.grid.push(row);
+      grid.push(row);
     }
 
     return grid;
   }
+
 }
+
+Board.marks = ["x", "o"];
 
 module.exports = Board;
 

@@ -1,7 +1,6 @@
 class Board {
   constructor() {
-    this.grid = Board.makeGrid();
-    this.marks = ["x", "o"]
+    this.grid = this.makeGrid();
   }
 
   winner() {
@@ -70,15 +69,18 @@ class Board {
 
     for (let i = 0; i < 3; i += 1) {
       let row = [];
-      for (let j = 0; j < 3; i += 1) {
+      for (let j = 0; j < 3; j += 1) {
         row.push([]);
       }
 
-      this.grid.push(row);
+      grid.push(row);
     }
 
     return grid;
   }
+
 }
+
+Board.marks = ["x", "o"];
 
 module.exports = Board;
