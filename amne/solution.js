@@ -1,7 +1,15 @@
-let line1 = [5, 3];
-let data = [188930, 194123, 201345, 154243, 154243];
+const fs = require("fs");
 
-let windowSize = line1[1];
+let windowSize;
+let numbers;
+
+let data = fs.readFileSync("file.txt", "utf8");
+let fields = data.split("\n");
+let firstLine = fields[0].split(" ");
+let secondLine = fields[1]
+
+windowSize = Number(firstLine[1]);
+numbers = secondLine.split(" ");
 
 const subsets = (arr, stretch) => {
   let sets = [];
@@ -13,7 +21,7 @@ const subsets = (arr, stretch) => {
 
     stretch -= 1;
   }
-  
+
   return sets;
 }
 
@@ -21,8 +29,8 @@ const score = (arr) => {
   let score = 0;
 
   for (let i = 1; i < arr.length; i += 1) {
-    var prevNum = arr[i - 1];
-    var thisNum = arr[i];
+    var prevNum = Number(arr[i - 1]);
+    var thisNum = Number(arr[i]);
 
     if (thisNum > prevNum) {
       score += 1;
@@ -57,4 +65,4 @@ const analyze = (arr, stretch) => {
   }
 }
 
-analyze(data, windowSize);
+analyze(numbers, windowSize);
