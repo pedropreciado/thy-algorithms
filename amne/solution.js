@@ -1,15 +1,25 @@
+// let numbers = [];
+
+// for (var i = 0; i < 200000; i += 1) {
+//   numbers.push(Math.floor(Math.random() * 1000000));
+// }
+//
+// let windowSize = 100000;
+//
+//
 const fs = require("fs");
-
-let windowSize;
-let numbers;
-
+//
 let data = fs.readFileSync("file.txt", "utf8");
-let fields = data.split("\n");
-let firstLine = fields[0].split(" ");
-let secondLine = fields[1]
 
-windowSize = Number(firstLine[1]);
-numbers = secondLine.split(" ");
+let numbers = data.split("\n").join("").split(" ,  ");
+let windowSize = 500;
+
+// let fields = data.split("\n");
+// let firstLine = fields[0].split(" ");
+// let secondLine = fields[1];
+//
+// let windowSize = Number(firstLine[1]);
+// let numbers = secondLine.split(" ");
 
 const subsets = (arr, stretch) => {
   let sets = [];
@@ -55,6 +65,7 @@ const analyze = (arr, stretch) => {
     let totalScore = 0;
 
     windowSubsets.forEach((set) => {
+      console.log("set length: ", set.length);
       let setScore;
 
       setScore = score(set);
@@ -62,7 +73,12 @@ const analyze = (arr, stretch) => {
     })
 
     console.log(totalScore);
+    console.log("thisWindow: ", thisWindow.length);
+    console.log("windowSubsets: ", windowSubsets.length);
   }
 }
 
+var start = Date.now();
 analyze(numbers, windowSize);
+
+console.log(`This shit took ${(Date.now() - start) / 1000} seconds`);
