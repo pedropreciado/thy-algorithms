@@ -4,14 +4,22 @@ class DynamicArray
   attr_reader :length
 
   def initialize
+    @store = []
+  end
+
+  def length
+    @store.length
   end
 
   # O(1)
   def [](index)
+    check_index(index)
+    @store[index]
   end
 
   # O(1)
   def []=(index, value)
+    
   end
 
   # O(1)
@@ -36,6 +44,9 @@ class DynamicArray
   attr_writer :length
 
   def check_index(index)
+    if (index < 0 || index >= length || length == 0)
+      raise "index out of bounds"
+    end
   end
 
   # O(n): has to copy over all the elements to the new store.
