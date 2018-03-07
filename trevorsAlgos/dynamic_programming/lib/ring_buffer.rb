@@ -48,7 +48,7 @@ class RingBuffer
 
   # O(1) ammortized
   def unshift(val)
-    
+    @store[(@start_idx - 1) % capacity] = val
   end
 
   def length
@@ -60,6 +60,7 @@ class RingBuffer
   attr_writer :length
 
   def check_index(index)
+
   end
 
   def resize!
