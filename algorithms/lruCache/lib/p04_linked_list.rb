@@ -21,61 +21,92 @@ end
 
 class LinkedList
   def initialize
-    @head = Node.new(nil, nil)
-    @tail = Node.new(nil, nil)
+    @head = Node.new
+    @tail = Node.new
+    @head.next = @tail
+    @tail.prev = @head
     @head.prev = nil
     @tail.next = nil
   end
 
   def [](i)
-    each_with_index { |link, j| return link if i == j }
-    nil
+    index = 0
+    node = first
+
+    while index != i
+      node = node.next
+      index += 1
+    end
+
+    node
   end
 
   def first
-    @head.next unless empty?
+    @head.next
   end
 
   def last
-    @tail.prev unless empty?
+    @tail.prev
   end
 
   def empty?
-    return true if @head.prev == @tail
+    return true if first == @tail
+
     false
   end
 
   def get(key)
+    each do |node|
+      return node.val if node.key == key
+    end
+
+    nil
   end
 
   def include?(key)
+    return false if get(key).nil?
+
+    true
   end
 
   def append(key, val)
     node = Node.new(key, val)
-    new_prev = @tail.prev
+
+    last.next = node
+    node.prev = last
+    node.next = @tail
     @tail.prev = node
-    node.prev = new_prev
+
   end
 
   def update(key, val)
-  end
-
-  def remove(key)
-    node = @head
-
-    until node == @tail
-      if node.key = key
-        node.remove
-      else
-        node = node.next
+    each do |node|
+      if node.key == key
+        node.val = val
       end
     end
   end
 
+  def remove(key)
+    each do |node|
+      if node.key == key
+        face, butt = node.prev, node.next
+
+        face.next, butt.prev = butt, face
+        node.next, node.prev = nil, nil
+
+        break
+      end
+    end
+  end
+
+  include Enumerable
+
   def each
-    node = @head
+    node = first
+
     until node == @tail
+      yield node
       node = node.next
     end
   end
