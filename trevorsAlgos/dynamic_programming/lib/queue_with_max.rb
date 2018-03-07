@@ -13,19 +13,22 @@ class QueueWithMax
 
   def initialize
     @store = []
+    @max = nil
   end
 
   def enqueue(val)
-    
+    @store.push(val)
   end
 
   def dequeue
+    @store.shift
   end
 
   def max
   end
 
   def length
+    @store.length
   end
 
 end
