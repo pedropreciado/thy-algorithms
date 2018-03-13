@@ -60,7 +60,6 @@ class BinaryMinHeap
 
 
   def self.heapify_down(array, parent_idx, len = array.length, &prc)
-    p array
     parent = array[parent_idx]
     children = self.child_indices(array.length, parent_idx)
 

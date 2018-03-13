@@ -32,6 +32,7 @@ class RingBuffer
 
   # O(1) ammortized
   def push(val)
+    resize if @start_idx === @last_idx + 1
     @store[(@last_idx) % capacity] = val
 
     @last_idx += 1
@@ -48,6 +49,8 @@ class RingBuffer
 
   # O(1) ammortized
   def unshift(val)
+    resize if @start_idx === @last_idx + 1
+
     @store[(@start_idx - 1) % capacity] = val
   end
 
@@ -72,5 +75,7 @@ class RingBuffer
     end
 
     @store = new_array
+    @capacity *= 2
+
   end
 end
