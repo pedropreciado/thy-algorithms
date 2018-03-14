@@ -29,7 +29,9 @@ class HashMap
   end
 
   def delete(key)
-    
+    index = bucket(key)
+
+    @store[index].remove(key)
   end
 
   def each
