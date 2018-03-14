@@ -17,9 +17,10 @@ class HashMap
 
   def set(key, val)
     index = bucket(key)
-    @store[index].update(key, val) if @store[index].include?(key)
+    return @store[index].update(key, val) if @store[index].include?(key)
 
     @store[index].append(key, val)
+    @count += 1
   end
 
   def get(key)
@@ -32,18 +33,26 @@ class HashMap
     index = bucket(key)
 
     @store[index].remove(key)
+    @count -= 1
   end
 
+  include Enumerable
+
   def each
+    @store.each do |bucket|
+      bucket.each do |node|
+        yield node.key, node.val
+      end
+    end
   end
 
   # uncomment when you have Enumerable included
-  # def to_s
-  #   pairs = inject([]) do |strs, (k, v)|
-  #     strs << "#{k.to_s} => #{v.to_s}"
-  #   end
-  #   "{\n" + pairs.join(",\n") + "\n}"
-  # end
+  def to_s
+    pairs = inject([]) do |strs, (k, v)|
+      strs << "#{k.to_s} => #{v.to_s}"
+    end
+    "{\n" + pairs.join(",\n") + "\n}"
+  end
 
   alias_method :[], :get
   alias_method :[]=, :set
