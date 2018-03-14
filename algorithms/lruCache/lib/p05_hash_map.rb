@@ -16,6 +16,7 @@ class HashMap
   end
 
   def set(key, val)
+    resize! if @count + 1 >= num_buckets
     index = bucket(key)
     return @store[index].update(key, val) if @store[index].include?(key)
 
@@ -69,9 +70,13 @@ class HashMap
 
     old_store.each do |bucket|
       bucket.each do |node|
-        new_store[bucket(key)]
+        index = node.key.hash % (num_buckets * 2)
+
+        new_store[index].append(node.key, node.val)
       end
     end
+
+    @store = new_store
   end
 
   def bucket(key)
