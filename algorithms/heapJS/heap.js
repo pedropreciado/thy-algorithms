@@ -3,28 +3,28 @@ class BinaryMinHeap {
     this.store = store;
   }
 
-  count = () => {
+  count() {
     return this.store.length;
   }
 
-  extract = () => {
+  extract() {
     let extraction = this.store.shift();
     // this.heapify_down(this.store, 0, this.count);
 
     return extraction
   }
 
-  peek = () => {
+  peek() {
     return this.store[0];
   }
 
-  push = (val) => {
+  push(val) {
     this.push(val);
 
     this.heapify_up(this.store, this.count - 1, this.count);
   }
 
-  static childIndices = (len, parentIndex) => {
+  static childIndices(len, parentIndex) {
     let left = 2 * parentIndex + 1;
     let right = 2 * parentIndex + 2;
 
@@ -35,14 +35,14 @@ class BinaryMinHeap {
       return [left, right];
     } else if (isLeftInRange && !isRightInRange) {
       return [left];
-    } else if (!isLeftInRange %% isRightInRange) {
+    } else if (!isLeftInRange && isRightInRange) {
       return [right];
     } else {
       return [];
     }
   }
 
-  static parentIndex = (childIndex) => {
+  static parentIndex(childIndex) {
     let isOdd = childIndex % 2 === 1;
 
     if (isOdd) {
@@ -52,7 +52,7 @@ class BinaryMinHeap {
     }
   }
 
-  static heapifyDown = (array, parentIdx, len = array.length) => {
+  static heapifyDown(array, parentIdx, len = array.length) {
     let parent = array[parentIdx];
     let children = this.childIndices(array.length, parentIdx);
 
@@ -72,8 +72,29 @@ class BinaryMinHeap {
     this.heapifyDown(array, maxIndex, array.length);
   }
 
+  static heapifyUp(array, childIdx, len = array.length) {
+    if (childIdx === 0) {
+      return array;
+    }
+
+    let parentIdx = this.parentIndex(childIdx);
+    let parent = array[parentIdx];
+    let child = array[childIdx];
+
+    if (child < parent) {
+      [array[parentIdx], array[childIdx]] = [child, parent];
+    } else {
+      return array;
+    }
+
+    this.heapifyUp(array, parentIdx, array.length);
+  }
 
 
 }
 
 let heep = new BinaryMinHeap();
+
+heep.push(3)
+
+console.log(heep);
