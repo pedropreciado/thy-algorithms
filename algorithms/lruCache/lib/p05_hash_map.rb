@@ -10,7 +10,9 @@ class HashMap
   end
 
   def include?(key)
-    
+    index = bucket(key)
+
+    @store[index].include?(key)
   end
 
   def set(key, val)
@@ -27,6 +29,7 @@ class HashMap
   end
 
   def delete(key)
+    
   end
 
   def each
