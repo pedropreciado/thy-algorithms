@@ -18,7 +18,11 @@ class HashMap
   def set(key, val)
     resize! if @count + 1 >= num_buckets
     index = bucket(key)
-    return @store[index].update(key, val) if @store[index].include?(key)
+
+    if @store[index].include?(key)
+      @store[index].update(key, val)
+      return @count
+    end
 
     @store[index].append(key, val)
     @count += 1
@@ -27,13 +31,15 @@ class HashMap
   def get(key)
     index = bucket(key)
 
-    @store[index].get(key)
+    val = @store[index].get(key)
+
   end
 
   def delete(key)
     index = bucket(key)
 
     @store[index].remove(key)
+    
     @count -= 1
   end
 

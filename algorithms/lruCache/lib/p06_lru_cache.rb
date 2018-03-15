@@ -15,6 +15,15 @@ class LRUCache
   end
 
   def get(key)
+    node = @map.get(key)
+
+    if node.nil?
+      val = @prc.call(key)
+      node = @store.append(key, val)
+      @map.set(key, node)
+    end
+
+    node.val
   end
 
   def to_s
@@ -32,5 +41,6 @@ class LRUCache
   end
 
   def eject!
+    head = 
   end
 end
