@@ -1,6 +1,11 @@
 class BinaryMinHeap {
   constructor(store = []) {
     this.store = store;
+
+    this.heapifyUp = this.heapifyUp.bind(this);
+    this.heapifyDown = this.heapifyDown.bind(this);
+    this.count = this.count.bind(this);
+    this.extract = this.extract.bind(this);
   }
 
   count() {
@@ -9,7 +14,7 @@ class BinaryMinHeap {
 
   extract() {
     let extraction = this.store.shift();
-    // this.heapify_down(this.store, 0, this.count);
+    this.heapifyDown(this.store, 0, this.count);
 
     return extraction
   }
@@ -19,12 +24,12 @@ class BinaryMinHeap {
   }
 
   push(val) {
-    this.push(val);
+    this.store.push(val);
 
-    this.heapify_up(this.store, this.count - 1, this.count);
+    return this.heapifyUp(this.store, this.count() - 1, this.count());
   }
 
-  static childIndices(len, parentIndex) {
+  childIndices(len, parentIndex) {
     let left = 2 * parentIndex + 1;
     let right = 2 * parentIndex + 2;
 
@@ -42,17 +47,17 @@ class BinaryMinHeap {
     }
   }
 
-  static parentIndex(childIndex) {
+  parentIndex(childIndex) {
     let isOdd = childIndex % 2 === 1;
 
     if (isOdd) {
-      return childIndex / 2;
+      return Math.floor(childIndex / 2);
     } else {
-      return (childIndex / 2) - 1;
+      return (Math.floor(childIndex / 2)) - 1;
     }
   }
 
-  static heapifyDown(array, parentIdx, len = array.length) {
+  heapifyDown(array, parentIdx, len = array.length) {
     let parent = array[parentIdx];
     let children = this.childIndices(array.length, parentIdx);
 
@@ -72,14 +77,14 @@ class BinaryMinHeap {
     this.heapifyDown(array, maxIndex, array.length);
   }
 
-  static heapifyUp(array, childIdx, len = array.length) {
+  heapifyUp(array, childIdx, len = array.length) {
     if (childIdx === 0) {
       return array;
     }
 
     let parentIdx = this.parentIndex(childIdx);
-    let parent = array[parentIdx];
-    let child = array[childIdx];
+    let parent = array[Math.floor(parentIdx)];
+    let child = array[Math.floor(childIdx)];
 
     if (child < parent) {
       [array[parentIdx], array[childIdx]] = [child, parent];
@@ -93,8 +98,4 @@ class BinaryMinHeap {
 
 }
 
-let heep = new BinaryMinHeap();
-
-heep.push(3)
-
-console.log(heep);
+module.exports = BinaryMinHeap;

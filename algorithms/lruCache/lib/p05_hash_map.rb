@@ -32,14 +32,13 @@ class HashMap
     index = bucket(key)
 
     val = @store[index].get(key)
-
   end
 
   def delete(key)
     index = bucket(key)
 
     @store[index].remove(key)
-    
+
     @count -= 1
   end
 
