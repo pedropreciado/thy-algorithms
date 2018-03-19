@@ -10,11 +10,12 @@ function heapSort(array) {
   let result = [];
 
   while (heap.count() > 0) {
-    result.push(heap.extract());
+    let el = heap.extract()
+    
+    result.push(el);
   }
 
   return result;
 }
 
-var arr = [4, 12345, 7, 4, 4, 33, 54, -1, 2342];
-console.log(heapSort(arr));
+module.exports = heapSort;

@@ -79,7 +79,7 @@ class BinaryMinHeap
 
 
 
-
+1
   def self.heapify_up(array, child_idx, len = array.length, &prc)
     return array if child_idx == 0
 

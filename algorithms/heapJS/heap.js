@@ -14,7 +14,7 @@ class BinaryMinHeap {
 
   extract() {
     let extraction = this.store.shift();
-    this.heapifyDown(this.store, 0, this.count);
+    this.heapifyDown(this.store, 0, this.count());
 
     return extraction
   }
@@ -68,7 +68,7 @@ class BinaryMinHeap {
     let maxIndex = Math.min(children);
     let maxChild = array[maxIndex];
 
-    if (parent > maxChild) {
+    if (parent < maxChild) {
       [array[parentIdx], array[maxIndex]] = [maxChild, parent];
     } else {
       return array;
@@ -99,3 +99,24 @@ class BinaryMinHeap {
 }
 
 module.exports = BinaryMinHeap;
+
+let heap = new BinaryMinHeap;
+console.log(heap.store);
+
+heap.push(3)
+heap.push(43)
+heap.push(4)
+heap.push(452453)
+heap.push(4524)
+
+console.log(heap.store);
+
+let arr = [];
+
+arr.push(heap.extract());
+arr.push(heap.extract());
+arr.push(heap.extract());
+arr.push(heap.extract());
+arr.push(heap.extract());
+
+console.log(heap.store, arr);
